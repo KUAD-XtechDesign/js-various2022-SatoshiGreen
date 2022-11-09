@@ -46,6 +46,7 @@ $(function(){
   $("#btn03").on("click",function(){
     $("html, body").animate({scrollTop:separate*2}, 1000, "swing");
   })
+  
 
 
 
