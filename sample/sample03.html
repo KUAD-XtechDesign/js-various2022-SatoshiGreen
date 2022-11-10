@@ -35,6 +35,9 @@ canvas{
 <div id="jsi-sea-container" class="container"></div>
 
 <script type="text/javascript">
+
+let rate=1;
+
 var HAMMERHEAD_RENDERER = {
 	HAMMERHEAD_COUNT : 10,
 	ADD_INTERVAL : 3,
@@ -76,6 +79,8 @@ var HAMMERHEAD_RENDERER = {
 	},
 	changeView : function(toAdjust, event){
 		this.destinationX = event.clientX - this.$container.offset().left + this.$window.scrollLeft();
+
+		rate = event.clientY/this.$window.height();
 		
 		if(!toAdjust){
 			return;
@@ -89,8 +94,7 @@ var HAMMERHEAD_RENDERER = {
 	render : function(){
 		requestAnimationFrame(this.render);
 		
-		var gradient = this.context.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.distance),
-			rate = (1 + 0.2 * Math.sin(this.theta));
+		var gradient = this.context.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.distance)
 			
 		gradient.addColorStop(0, 'hsl(195, 80%, ' + (90 * rate) + '%)');
 		gradient.addColorStop(0.2, 'hsl(195, 100%, ' + (50 * rate) + '%)');
@@ -199,6 +203,13 @@ HAMMERHEAD.prototype = {
 		return this.y >= -this.VERTICAL_THRESHOLD;
 	}
 };
+
+
+
+
+
+
+
 var MANTA_RENDERER = {
 	MANTA_COUNT : 3,
 	ADD_INTERVAL : 30,
@@ -231,8 +242,7 @@ var MANTA_RENDERER = {
 	render : function(){
 		requestAnimationFrame(this.render);
 		
-		var gradient = this.context.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.distance),
-			rate = (1 + 0.2 * Math.sin(this.theta));
+		var gradient = this.context.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.distance)
 			
 		gradient.addColorStop(0, 'hsl(195, 80%, ' + (60 * rate) + '%)');
 		gradient.addColorStop(0.2, 'hsl(195, 100%, ' + (40 * rate) + '%)');
@@ -319,7 +329,7 @@ MANTA.prototype = {
 		context.strokeStyle = this.gradient;
 		context.beginPath();
 		context.moveTo(0, 70);
-		context.quadraticCurveTo(0, 130, 20 * Math.sin(this.theta), 190);
+		context.quadraticCurveTo(0, 130, 20 * Math.sin(this.theta), 190);//しっぽの振り
 		context.stroke();
 		
 		context.fillStyle = this.gradient;
@@ -342,12 +352,12 @@ MANTA.prototype = {
 		context.strokeStyle = this.gradient;
 		context.beginPath();
 		context.moveTo(23, -38);
-		context.quadraticCurveTo(33, -55, 23 - 10 * Math.sin(this.psi), -70);
+		context.quadraticCurveTo(33, -55, 23 - 10 * Math.sin(this.psi), -70);//向かって右目
 		context.stroke();
 		
 		context.beginPath();
 		context.moveTo(-23, -38);
-		context.quadraticCurveTo(-33, -55, -23 + 10 * Math.sin(this.psi), -70);
+		context.quadraticCurveTo(-33, -55, -23 + 10 * Math.sin(this.psi), -70);//向かって右目
 		context.stroke();
 		
 		context.lineWidth = 1;
